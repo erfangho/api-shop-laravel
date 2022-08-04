@@ -6,22 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property integer $id
+ * @property integer $category_id
  * @property string $name
- * @property string $email
- * @property boolean $is_admin
- * @property integer $credit
- * @property string $password
- * @property string $phone
- * @property string $city
- * @property string $address
- * @property string $remember_token
+ * @property string $description
+ * @property string $image
+ * @property integer $price
+ * @property integer $discount
+ * @property integer $quantity
  * @property string $created_at
  * @property string $updated_at
  * @property Cart[] $carts
  * @property Comment[] $comments
- * @property Order[] $orders
+ * @property OrderProduct[] $orderProducts
+ * @property Category $category
  */
-class User extends Model
+class Product extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
@@ -33,7 +32,7 @@ class User extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'email', 'is_admin', 'credit', 'password', 'phone', 'city', 'address', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['category_id', 'name', 'description', 'image', 'price', 'discount', 'quantity', 'created_at', 'updated_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -54,8 +53,16 @@ class User extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function orders()
+    public function orderProducts()
     {
-        return $this->hasMany('App\Models\Order');
+        return $this->hasMany('App\Models\OrderProduct');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Category');
     }
 }
