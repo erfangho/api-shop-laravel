@@ -37,6 +37,7 @@ class User extends Model
      */
     protected $fillable = ['name', 'email', 'is_admin', 'credit', 'password', 'phone', 'city', 'address', 'remember_token', 'created_at', 'updated_at'];
 
+    protected $hidden = ['password'];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
