@@ -3,7 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 /**
  * @property integer $id
@@ -22,9 +24,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property Comment[] $comments
  * @property Order[] $orders
  */
-class User extends Model
+class User extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens;
     /**
      * The "type" of the auto-incrementing ID.
      *
@@ -35,7 +37,7 @@ class User extends Model
     /**
      * @var array
      */
-    protected $fillable = ['name', 'email', 'is_admin', 'credit', 'password', 'phone', 'city', 'address', 'remember_token', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'email', 'credit', 'password', 'phone', 'city', 'address', 'remember_token', 'created_at', 'updated_at'];
 
     protected $hidden = ['password'];
     /**

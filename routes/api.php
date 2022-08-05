@@ -15,14 +15,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/users', [UserController::class, 'index']);
-
 Route::post('/signup', [UserController::class, 'signUp']);
 
-Route::get('/users/show/{id}', [UserController::class, 'show']);
+Route::post('/login', [UserController::class, 'login']);
 
-Route::get('/profile', [UserController::class, 'show']);
+Route::middleware('auth:sanctum')->group( function () {
+    Route::get('/users', [UserController::class, 'index']);
 
-Route::get('/profile/edit', [UserController::class, 'show']);
+    Route::get('/users/show/{id}', [UserController::class, 'show']);
 
-Route::get('/users/delete', [UserController::class, 'destroy']);
+    Route::get('/profile', [UserController::class, 'profile']);
+
+    Route::get('/users/delete/{id}', [UserController::class, 'destroy']);
+});
+
