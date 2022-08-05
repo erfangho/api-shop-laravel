@@ -86,6 +86,13 @@ class UserController extends Controller
         }
     }
 
+    public function logOut()
+    {
+        $current_user = Auth::user();
+        $current_user->tokens()->delete();
+        return response()->json(['message' => 'Logout successfully'], ResponseAlias::HTTP_OK);
+    }
+
     public function profile()
     {
         $user = Auth::user();
