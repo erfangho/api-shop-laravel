@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Comment\CommentController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\ProductController;
@@ -30,7 +31,6 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('/logout', [UserController::class, 'logout']);
 
     Route::post('products/create', [ProductController::class, 'create']);
-    Route::post('products/{id}/buy', [ProductController::class, 'addToCart']);
     Route::put('products/edit/{id}', [ProductController::class, 'edit']);
     Route::get('products/delete/{id}', [ProductController::class, 'destroy']);
 
@@ -41,7 +41,10 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('/products/show/{id}/comments', [CommentController::class, 'create']);
     Route::get('/products/show/{product_id}/comments/{comment_id}/delete', [CommentController::class, 'destroy']);
 
-
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('products/{id}/buy', [CartController::class, 'addToCart']);
+    Route::get('products/{id}/return', [CartController::class, 'removeFromCart']);
+    Route::get('/cart/submit', [CartController::class, 'submitCart']);
 });
 
 Route::get('/products', [ProductController::class, 'index']);
@@ -52,3 +55,4 @@ Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
 Route::get('/comments', [CommentController::class, 'index']);
 Route::get('/products/show/{id}/comments', [CommentController::class, 'show']);
+

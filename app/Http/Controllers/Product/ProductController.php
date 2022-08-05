@@ -116,36 +116,4 @@ class ProductController extends Controller
             return response()->json(['message' => 'Something went wrong'], ResponseAlias::HTTP_BAD_REQUEST);
         }
     }
-
-    public function addToCart(Request $request, $id)
-    {
-        try {
-            $current_user = Auth::user();
-
-            $product = Product::find($id);
-
-            if($product->quantity > 0 && $product->quantity >= $request->quantity) {
-                $cart = new Cart();
-                if($cart->query()->where('product_id', $id)->where('user_id', $current_user->id)->exists()) {
-                    $cart = $cart->query()->where('product_id', $id)->where('user_id', $current_user->id)->first();
-                    $cart->quantity += $request->quantity;
-                    $cart->update();
-                } else {
-                    $cart->user_id = $current_user->id;
-                    $cart->product_id = $id;
-                    $cart->quantity = $request->quantity;
-                    $cart->save();
-                }
-            } else {
-                return response()->json(['message' => 'Product quantity is not enough'], ResponseAlias::HTTP_NOT_FOUND);
-            }
-
-            $product->quantity = $product->quantity - $request->quantity;
-            $product->update();
-
-            return response()->json(['message' => 'Product added to cart successfully'], ResponseAlias::HTTP_OK);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e->getMessage()], ResponseAlias::HTTP_BAD_REQUEST);
-        }
-    }
 }

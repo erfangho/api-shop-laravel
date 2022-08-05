@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer $id
  * @property integer $order_id
  * @property integer $product_id
+ * @property integer $quantity
  * @property string $created_at
  * @property string $updated_at
  * @property Order $order
@@ -17,7 +18,7 @@ class OrderProduct extends Model
 {
     /**
      * The "type" of the auto-incrementing ID.
-     * 
+     *
      * @var string
      */
     protected $keyType = 'integer';
@@ -25,7 +26,7 @@ class OrderProduct extends Model
     /**
      * @var array
      */
-    protected $fillable = ['order_id', 'product_id', 'created_at', 'updated_at'];
+    protected $fillable = ['order_id', 'product_id', 'created_at', 'updated_at', 'quantity'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
