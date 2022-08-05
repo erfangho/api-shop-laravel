@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Comment\CommentController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\User\UserController;
@@ -36,6 +37,9 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::put('categories/edit/{id}', [CategoryController::class, 'edit']);
     Route::get('categories/delete/{id}', [CategoryController::class, 'destroy']);
 
+    Route::post('/products/show/{id}/comments', [CommentController::class, 'create']);
+    Route::get('/products/show/{product_id}/comments/{comment_id}/delete', [CommentController::class, 'destroy']);
+
 
 });
 
@@ -44,3 +48,6 @@ Route::get('/products/show/{id}', [ProductController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
+
+Route::get('/comments', [CommentController::class, 'index']);
+Route::get('/products/show/{id}/comments', [CommentController::class, 'show']);
