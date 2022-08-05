@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Comment\CommentController;
+use App\Http\Controllers\Order\OrderController;
 use App\Http\Controllers\Product\CategoryController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\User\UserController;
@@ -45,6 +46,11 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('products/{id}/buy', [CartController::class, 'addToCart']);
     Route::get('products/{id}/return', [CartController::class, 'removeFromCart']);
     Route::get('/cart/submit', [CartController::class, 'submitCart']);
+
+    Route::get('/orders', [OrderController::class, 'show']);
+    Route::get('/orders/cancel', [OrderController::class, 'cancel']);
+    Route::get('/orders/pay', [OrderController::class, 'payOrder']);
+    Route::get('/orders/history', [OrderController::class, 'orderHistory']);
 });
 
 Route::get('/products', [ProductController::class, 'index']);

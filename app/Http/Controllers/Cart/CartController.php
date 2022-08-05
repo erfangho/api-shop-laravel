@@ -87,7 +87,7 @@ class CartController extends Controller
 
             $order = new Order();
 
-            if($order->query()->where('user_id', $current_user->id)->exists()) {
+            if($order->query()->where('user_id', $current_user->id)->where('status', 'pending')->exists()) {
                 return response()->json(['message' => 'You have an active order'], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
             } else {
                 $order->user_id = $current_user->id;
